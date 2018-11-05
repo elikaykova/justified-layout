@@ -30,8 +30,8 @@ let data2 = [
 const data = data2;
 const viewport = 1440;
 const idealRowHeight = 300;
-const maxShrinkFactor = 50;
-const maxStretchFactor = 50;
+const maxShrinkFactor = 100;
+const maxStretchFactor = 100;
 const photoNumber = 9;
 
 const START = 0;
@@ -117,7 +117,6 @@ function goTroughtGroups(start, end) {
         //console.log(idealRowHeight + " " + data[i].height + " " + data[i].width);
     }
 
-    let restWidth = viewport - currWidth;
     let currHeight = findBestHeight(currWidth);
     console.log("currHeight: " + currHeight);
     resize(start, end, currHeight);
@@ -145,10 +144,7 @@ function findWeight(start, end) {
     if (Math.abs(idealRowHeight - currHeight) > maxShrinkFactor) {
         return badness * badness + (viewport - currWidth);
     }
-    if (currWidth < viewport) {
-        return badness + (viewport - currWidth);
-    }
-
+    
     console.log("currWidth: badness" + currWidth);
     console.log(findBestHeight(currWidth));
     return badness;
@@ -185,7 +181,7 @@ function findChildren(currIndex) {
 
 function generateGraph() {
     let notFound = true;
-    let notDouble = 2;
+    let notDouble = 3; // must change
     nodes.push(new Node(null, START, 0));
     let currIndex = 0;
 
